@@ -9,6 +9,8 @@ authors = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+markdown = "^3.0"
+bleach = "^3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
