@@ -33,10 +33,18 @@ Features
 Running Tests
 -------------
 
-Does the code actually work?
-
 ::
 
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
+    $ workon sfdo-template-helpers
+    (sfdo-template-helpers) $ poetry install
+    (sfdo-template-helpers) $ tox
+
+Publishing releases
+-------------------
+
+Bump the version number in ``sfdo_template_helpers/__init__.py``, and
+make a tagged commit. Then::
+
+    $ workon sfdo-template-helpers
+    (sfdo-template-helpers) $ git push origin --tags
+    (sfdo-template-helpers) $ poetry publish --build
