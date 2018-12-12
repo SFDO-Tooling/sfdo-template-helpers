@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "sfdo_template_helpers",
+    "tests",
 ]
 
 SITE_ID = 1
