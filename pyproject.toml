@@ -6,6 +6,7 @@ authors = [
     "Christian Carter <cdcarter@gmail.com>",
     "Kit La Touche <kit@transneptune.net>",
 ]
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.6"
