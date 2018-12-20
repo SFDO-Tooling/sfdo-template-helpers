@@ -21,6 +21,7 @@ coverage = "^4.5"
 tox = "^3.5"
 sphinx = "^1.8"
 flake8 = "^3.6"
+"poetry-setup" = "^0.3.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
