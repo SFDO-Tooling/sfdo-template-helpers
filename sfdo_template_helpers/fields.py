@@ -70,10 +70,7 @@ class MarkdownFieldMixin:
         "a",
     ]
 
-    markdown_attrs = {
-        "img": ["src", "alt", "title"],
-        "a": ["href", "alt", "title"],
-    }
+    markdown_attrs = {"img": ["src", "alt", "title"], "a": ["href", "alt", "title"]}
 
     description = _("Field containing Markdown formatted text.")
 

@@ -65,8 +65,8 @@ Ready to contribute? Here's how to set up `sfdo-template-helpers` for local deve
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
     $ mkvirtualenv sfdo-template-helpers
-    $ pip install poetry
-    $ poetry install
+    $ pip install poetry poetry-setup
+    $ poetry update
 
 4. Create a branch for local development::
 
@@ -77,6 +77,7 @@ Ready to contribute? Here's how to set up `sfdo-template-helpers` for local deve
 5. When you're done making changes, check that your changes pass flake8 and the
    tests, including testing other Python versions with tox::
 
+    $ black sfdo_template_helpers
     $ flake8
     $ tox
 
