@@ -18,6 +18,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+venv
 
 # Installer logs
 pip-log.txt
@@ -27,17 +28,18 @@ pip-log.txt
 .tox
 nosetests.xml
 htmlcov
+.pytest_cache
 
 # Translations
 *.mo
 
-# Mr Developer
+# IDEs and projects
 .mr.developer.cfg
 .project
 .pydevproject
-
-# Pycharm/Intellij
 .idea
+.vscode
+.python-version
 
 # Complexity
 output/*.html
@@ -45,3 +47,6 @@ output/*/index.html
 
 # Sphinx
 docs/_build
+
+# Annoyances
+**/.DS_Store
