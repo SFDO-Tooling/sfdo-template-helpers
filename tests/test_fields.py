@@ -8,11 +8,7 @@ def test_strips_unsafe_tags():
     md.description = "<script>bad js</script>Test"
 
     assert md.description_html == "\n".join(
-        [
-            "&lt;script&gt;bad js&lt;/script&gt;",
-            "",
-            "<p>Test</p>",
-        ]
+        ["&lt;script&gt;bad js&lt;/script&gt;", "", "<p>Test</p>"]
     )
 
 
