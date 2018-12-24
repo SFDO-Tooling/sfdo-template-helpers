@@ -52,7 +52,13 @@ Rendering is safe by default and limited to a SFDC ProdSec reviewed list of prop
 Running Tests
 -------------
 
-::
+With py.test::
+
+    $ workon sfdo-template-helpers
+    (sfdo-template-helpers) $ export DJANGO_SETTINGS_MODULE=tests.settings
+    (sfdo-template-helpers) $ pytest
+
+Using tox to run multiple versions::
 
     $ workon sfdo-template-helpers
     (sfdo-template-helpers) $ poetry install
