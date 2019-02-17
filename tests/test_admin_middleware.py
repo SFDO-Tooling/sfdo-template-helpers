@@ -5,8 +5,10 @@ from unittest.mock import sentinel
 import pytest
 from django.core.exceptions import SuspiciousOperation
 
-from sfdo_template_helpers.admin.middleware import (AdminRestrictMiddleware,
-                                                    get_remote_ip)
+from sfdo_template_helpers.admin.middleware import (
+    AdminRestrictMiddleware,
+    get_remote_ip,
+)
 
 Request = namedtuple("Request", ("META", "path"))
 

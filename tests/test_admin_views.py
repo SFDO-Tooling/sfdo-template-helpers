@@ -1,7 +1,7 @@
 import pytest
-from tests.models import Markdowner
 
 from sfdo_template_helpers.admin.views import AdminAPIViewSet
+from tests.models import Markdowner
 
 
 @pytest.mark.django_db
