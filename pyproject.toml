@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sfdo-template-helpers"
-version = "0.1.0"
+version = "0.2.0"
 description = "A set of Django helpers and utils used by sfdo-template projects."
 authors = [
     "Christian Carter <cdcarter@gmail.com>",
