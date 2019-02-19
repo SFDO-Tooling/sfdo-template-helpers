@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sfdo-template-helpers"
-version = "0.1.0"
+version = "0.2.0"
 description = "A set of Django helpers and utils used by sfdo-template projects."
 authors = [
     "Christian Carter <cdcarter@gmail.com>",
@@ -13,6 +13,7 @@ python = "^3.6"
 markdown = "^3.0"
 bleach = "^3.0"
 django = "^2.1"
+djangorestframework = "^3.9"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
@@ -23,10 +24,12 @@ tox = "^3.5"
 flake8 = "^3.6"
 "poetry-setup" = "^0.3.0"
 black = "^18.9b0"
+isort = "^4.3"
+
+[tool.black]
+py36 = true
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.black]
-py36 = true

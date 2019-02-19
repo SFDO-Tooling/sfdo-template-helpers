@@ -1,6 +1,7 @@
 import pytest
-from tests.models import Markdowner
+
 from sfdo_template_helpers.fields import MarkdownField
+from tests.models import Markdowner
 
 
 def test_strips_unsafe_tags():
