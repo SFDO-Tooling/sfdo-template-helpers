@@ -5,23 +5,9 @@ from unittest.mock import sentinel
 import pytest
 from django.core.exceptions import SuspiciousOperation
 
-from sfdo_template_helpers.admin.middleware import (
-    AdminRestrictMiddleware,
-    get_remote_ip,
-)
+from sfdo_template_helpers.admin.middleware import AdminRestrictMiddleware
 
 Request = namedtuple("Request", ("META", "path"))
-
-
-def test_get_remote_ip():
-    request = Request({"HTTP_X_FORWARDED_FOR": "127.0.0.1"}, "")
-    assert get_remote_ip(request) == "127.0.0.1"
-
-    request = Request({"REMOTE_ADDR": "127.0.0.1"}, "")
-    assert get_remote_ip(request) == "127.0.0.1"
-
-    request = Request({"REMOTE_ADDR": "0.0.0.0, 127.0.0.1"}, "")
-    assert get_remote_ip(request) == "127.0.0.1"
 
 
 class TestAdminRestrictMiddleware:

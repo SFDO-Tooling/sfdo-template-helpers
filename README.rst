@@ -37,10 +37,12 @@ Documentation
 MarkdownField
 '''''''''''''
 
-You can use MarkdownField like an ordinary TextField::
+You can use MarkdownField like an ordinary TextField:
 
-    class Product(models.Model):
-        description = MarkdownField(max_length=2000, null=True, blank=True, help_text='Displayed on the product summary.')
+.. code-block:: python
+
+   class Product(models.Model):
+       description = MarkdownField(max_length=2000, null=True, blank=True, help_text='Displayed on the product summary.')
 
 The field does no validation that it is indeed Markdown formatted text, but instead adds a lazy property to the model instance, which will render the text as HTML. The rendered HTML has been ``mark_safe``'d for Django templates.
 
@@ -48,6 +50,29 @@ It has one additional kwarg, ``property_suffix`` that defaults to ``_html``. Thi
 
 Rendering is safe by default and limited to a SFDC ProdSec reviewed list of properties and attributes. To override what HTML is whitelisted, subclass MarkdownField and override ``markdown_tags`` and ``markdown_attrs``. WARNING: the output of the html property will *still* be a SafeString.
 
+Admin
+'''''
+
+This contains a number of submodules. Those you are most likely to use are ``middleware``, ``serializers``, and ``views``.
+
+``middleware`` contains a middleware class that will restrict a set of views to a set of originating IP addresses. This is intended to limit Admin API views to Salesforce-internal IPs.
+
+``serializers`` and ``views`` contain base classes for automatically generating the classes you need for a DRF API that provides transparent access to all the models linked up. This is suitable for making an Admin API.
+
+Crypto
+''''''
+
+This contains two functions, ``fernet_encrypt`` and ``fernet_decrypt``.  They both require a value to be set in the Django project's settings, ``DB_ENCRYPTION_KEY``, which should be kept secret. You can get a valid value for this setting by running the following in a Python shell:
+
+.. code-block:: python
+
+   from cryptography.fernet import Fernet
+   Fernet.generate_key()
+
+Addresses
+'''''''''
+
+This contains a single function, ``get_remote_ip``, which gets the originating IP of the request from the headers that Heroku sets.
 
 Running Tests
 -------------
