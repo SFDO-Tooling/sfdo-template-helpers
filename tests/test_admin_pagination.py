@@ -1,7 +1,5 @@
 from unittest.mock import sentinel
 
-from rest_framework.response import Response
-
 from sfdo_template_helpers.admin.pagination import AdminAPIPagination
 
 
