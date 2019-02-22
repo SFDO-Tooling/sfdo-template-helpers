@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sfdo-template-helpers"
-version = "0.2.0"
+version = "0.3.0"
 description = "A set of Django helpers and utils used by sfdo-template projects."
 authors = [
     "Christian Carter <cdcarter@gmail.com>",
@@ -14,6 +14,7 @@ markdown = "^3.0"
 bleach = "^3.0"
 django = "^2.1"
 djangorestframework = "^3.9"
+cryptography = "^2.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
