@@ -1,7 +1,5 @@
 from collections import namedtuple
 
-import pytest
-
 from sfdo_template_helpers.admin.permissions import IsAPIUser
 
 User = namedtuple("User", ("is_superuser",))

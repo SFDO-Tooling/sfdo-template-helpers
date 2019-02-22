@@ -22,7 +22,10 @@ class TestAdminAPISerializer:
         relation_info.related_model = sentinel.related_model
         relation_info.related_model._meta = MagicMock()
         relation_info.related_model._meta.object_name = "Foo"
-        method_name = "rest_framework.serializers.HyperlinkedModelSerializer.build_relational_field"
+        method_name = (
+            "rest_framework.serializers.HyperlinkedModelSerializer."
+            "build_relational_field"
+        )
         with patch(method_name) as build_relational_field:
             build_relational_field.return_value = (
                 sentinel.field_class,
@@ -38,7 +41,10 @@ class TestAdminAPISerializer:
         relation_info.related_model = sentinel.related_model
         relation_info.related_model._meta = MagicMock()
         relation_info.related_model._meta.object_name = "Foo"
-        method_name = "rest_framework.serializers.HyperlinkedModelSerializer.build_relational_field"
+        method_name = (
+            "rest_framework.serializers.HyperlinkedModelSerializer."
+            "build_relational_field"
+        )
         with patch(method_name) as build_relational_field:
             build_relational_field.return_value = (sentinel.field_class, {})
 

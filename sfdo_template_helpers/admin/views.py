@@ -1,6 +1,8 @@
 from django.apps import apps
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
+from django_filters.constants import ALL_FIELDS
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
 from .pagination import AdminAPIPagination
@@ -22,8 +24,10 @@ class AdminAPIViewSet(viewsets.ModelViewSet):
     # Pagination
     pagination_class = AdminAPIPagination
 
-    # TODO: Filter, idk figure something out,
-    #   don't reinvent odata $filter and build an injection attack.
+    # Filters
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ALL_FIELDS
+
     # TODO: Natural Keys, router support needed.
 
     # Caching

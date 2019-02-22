@@ -25,4 +25,4 @@ MIDDLEWARE = ()
 
 # A one-off key made to run tests. Obviously do not use the key in the test app for
 # anything real!
-DB_ENCRYPTION_KEY = 'SL1lkCS2pFOafsDIdwnypnIL1F0TTMuO_LAULCP6-Xk='
+DB_ENCRYPTION_KEY = "SL1lkCS2pFOafsDIdwnypnIL1F0TTMuO_LAULCP6-Xk="

@@ -15,6 +15,7 @@ bleach = "^3.0"
 django = "^2.1"
 djangorestframework = "^3.9"
 cryptography = "^2.5"
+django-filter = "^2.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
