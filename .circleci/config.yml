@@ -6,7 +6,8 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - run: sudo pip install poetry tox
+      - run: sudo pip install tox tox-pyenv
+      - run: pyenv local 3.6 3.7
       - run: poetry install
       - run: tox
 
