@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run: pip install poetry
-      - run: poetry install --dev
+      - run: poetry install
       - run: tox
 
 workflows:
