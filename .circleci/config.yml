@@ -7,7 +7,7 @@ jobs:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - run: pip install poetry
+      - run: pip install poetry tox
       - run: poetry install
       - run: tox
 
