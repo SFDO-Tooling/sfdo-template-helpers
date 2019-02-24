@@ -46,6 +46,7 @@ class TestAdminRestrictMiddleware:
 
         request = Request({"HTTP_X_FORWARDED_FOR": "127.0.0.1"}, "")
         middleware = AdminRestrictMiddleware(None)
+        assert middleware._validate_ip(request) is None
 
     def test_validate_ip_invalid(self, settings):
         settings.ADMIN_API_ALLOWED_SUBNETS = [IPv4Network("127.0.0.1")]
