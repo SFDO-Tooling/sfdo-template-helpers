@@ -1,16 +1,27 @@
 version: 2
 
 jobs:
-  test:
+  test_36:
     docker:
       - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run: sudo pip install tox
+      - run: poetry install
+      - run: tox -e py36-django-21
+
+  test_37:
+    docker:
       - image: circleci/python:3.7
     steps:
       - checkout
-      - run: tox
+      - run: sudo pip install tox
+      - run: poetry install
+      - run: tox -e py37-django-21
 
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - test_36
+      - test_37
