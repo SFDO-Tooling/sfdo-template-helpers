@@ -3,6 +3,7 @@ name = "sfdo-template-helpers"
 version = "0.4.0"
 description = "A set of Django helpers and utils used by sfdo-template projects."
 authors = [
+    "David Glick <dglick@salesforce.com>",
     "Christian Carter <cdcarter@gmail.com>",
     "Kit La Touche <kit@transneptune.net>",
 ]
