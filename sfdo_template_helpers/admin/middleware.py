@@ -16,8 +16,12 @@ class AdminRestrictMiddleware:
         self.ip_ranges = settings.ADMIN_API_ALLOWED_SUBNETS
 
     def __call__(self, request):
-        if request.path.startswith(f"/{settings.ADMIN_AREA_PREFIX}"):
-            self._validate_ip(request)
+        restricted_areas = tuple(getattr(settings, "RESTRICTED_PREFIXES", ()))
+        restricted_areas += tuple([getattr(settings, "ADMIN_AREA_PREFIX", ())])
+
+        for area in restricted_areas:
+            if request.path.startswith(f"/{area}"):
+                self._validate_ip(request)
 
         return self.get_response(request)
 
