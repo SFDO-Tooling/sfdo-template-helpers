@@ -22,7 +22,7 @@ class AdminRestrictMiddleware:
             restricted_areas += (admin_area,)
 
         for area in restricted_areas:
-            print(request.path, "VS", area, "FROM", restricted_areas)
+            area = area.rstrip("/")
             if request.path.startswith(f"/{area}"):
                 self._validate_ip(request)
 
@@ -31,8 +31,6 @@ class AdminRestrictMiddleware:
     def _validate_ip(self, request):
         ip_str = get_remote_ip(request)
         ip_addr = IPv4Address(ip_str)
-
-        print("Validating", ip_addr, "Vs", self.ip_ranges)
 
         if not any(ip_addr in subnet for subnet in self.ip_ranges):
             raise SuspiciousOperation(f"Disallowed IP address: {ip_addr}")
