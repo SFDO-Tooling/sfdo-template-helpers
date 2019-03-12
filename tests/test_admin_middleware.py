@@ -68,7 +68,7 @@ class TestAdminRestrictMiddleware:
         with pytest.raises(SuspiciousOperation):
             middleware._validate_ip(request)
 
-    def test_validate_restriction_on_multiple_URLs(self, settings):
+    def test_validate_restriction_on_multiple_prefixes(self, settings):
         settings.ADMIN_API_ALLOWED_SUBNETS = [IPv4Network("127.0.0.1")]
         settings.RESTRICTED_PREFIXES = ["admin/", "topsecret/"]
 
