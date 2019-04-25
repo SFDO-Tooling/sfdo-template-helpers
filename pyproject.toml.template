@@ -1,6 +1,10 @@
+# This pyproject was used, but since Heroku can't adequately install new-style
+# packages, we've backed this out until they can. You can use this to rebuild
+# the setup.py using poetry-setup, but don't commit it.
+
 [tool.poetry]
 name = "sfdo-template-helpers"
-version = "0.6.0"
+version = "0.7.0"
 description = "A set of Django helpers and utils used by sfdo-template projects."
 authors = [
     "David Glick <dglick@salesforce.com>",
