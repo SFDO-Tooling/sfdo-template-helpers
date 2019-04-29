@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run: sudo pip install tox
-      - run: poetry install
-      - run: tox -e py36-django-21
+      - run: sudo pip install -r requirements.txt
+      - run: tox -e py36-django21
 
   test_37:
     docker:
@@ -16,8 +16,8 @@ jobs:
     steps:
       - checkout
       - run: sudo pip install tox
-      - run: poetry install
-      - run: tox -e py37-django-21
+      - run: sudo pip install -r requirements.txt
+      - run: tox -e py37-django21
 
 workflows:
   version: 2

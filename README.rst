@@ -86,7 +86,7 @@ With py.test::
 Using tox to run multiple versions::
 
     $ workon sfdo-template-helpers
-    (sfdo-template-helpers) $ poetry install
+    (sfdo-template-helpers) $ pip install -r requirements.txt
     (sfdo-template-helpers) $ tox
 
 Publishing releases
@@ -97,4 +97,5 @@ make a tagged commit. Then::
 
     $ workon sfdo-template-helpers
     (sfdo-template-helpers) $ git push origin --tags
-    (sfdo-template-helpers) $ poetry publish --build
+
+We publish to GitHub, not to PyPI, yet.
