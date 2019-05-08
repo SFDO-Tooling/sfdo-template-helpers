@@ -1,5 +1,5 @@
 """
-CleanMarkdownField
+MarkdownField
 
 A subclass of TextField that's designed to support bleached/html safe
 rendering with `bleach` and `markdown`.  When used in a model,

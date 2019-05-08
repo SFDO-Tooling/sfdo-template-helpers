@@ -48,7 +48,13 @@ The field does no validation that it is indeed Markdown formatted text, but inst
 
 It has one additional kwarg, ``property_suffix`` that defaults to ``_html``. This is the ... suffix of the property that will be added to your model. Our earlier field would be rendered at ``product.description_html``.
 
-Rendering is safe by default and limited to a SFDC ProdSec reviewed list of properties and attributes. To override what HTML is whitelisted, subclass MarkdownField and override ``markdown_tags`` and ``markdown_attrs``. WARNING: the output of the html property will *still* be a SafeString.
+Rendering is safe by default and limited to a SFDC ProdSec reviewed list of properties and attributes. To override what HTML is whitelisted, provide ``allowed_tags`` and ``allowed_attrs`` kwargs when constructing the field. WARNING: the output of the html property will *still* be a SafeString. To leave the string tainted, you may add the `is_safe=False` kwarg.
+
+.. code-block:: python
+
+   class Product(models.Model):
+       bad_markdown_for_review = MarkdownField(allowed_attrs={"a": ["href", "alt", "title"]}, is_safe=False)
+
 
 StringField
 '''''''''''
