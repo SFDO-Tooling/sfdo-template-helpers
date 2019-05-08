@@ -84,6 +84,7 @@ class MarkdownFieldMixin:
         self.is_safe = kwargs.pop("is_safe", True)
         """ declare whether or not the html property should be marked safe for the django template system """
         self.allowed_tags = kwargs.pop("allowed_tags", MarkdownField.allowed_tags)
+        self.allowed_attrs = kwargs.pop("allowed_attrs", MarkdownField.allowed_attrs)
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):
