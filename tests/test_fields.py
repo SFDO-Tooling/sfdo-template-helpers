@@ -30,6 +30,10 @@ def test_override_tags():
     md.unsafe_description = "<b>not allowed!"
     assert "<b>" not in md.unsafe_description_html
 
+def test_override_attrs():
+    md = Markdowner()
+    md.unsafe_description = "<object title='Hampster Dance'>Blah Blah Blah</object>"
+    assert "<object" in md.unsafe_description_html
 
 def test_can_only_access_from_instance():
     with pytest.raises(AttributeError):
