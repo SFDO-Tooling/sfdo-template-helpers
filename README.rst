@@ -50,6 +50,11 @@ It has one additional kwarg, ``property_suffix`` that defaults to ``_html``. Thi
 
 Rendering is safe by default and limited to a SFDC ProdSec reviewed list of properties and attributes. To override what HTML is whitelisted, subclass MarkdownField and override ``markdown_tags`` and ``markdown_attrs``. WARNING: the output of the html property will *still* be a SafeString.
 
+StringField
+'''''''''''
+
+Postgres treats columns defined as text, varchar(50), and varchar(50000) all the same. Stop putting an unnecessary max_limit on your CharField just to get a single line input widget. Use StringField. Feel good.
+
 Admin
 '''''
 

@@ -1,7 +1,12 @@
 import pytest
+from django.forms.fields import CharField as CharFormField
 
-from sfdo_template_helpers.fields import MarkdownField
+from sfdo_template_helpers.fields import MarkdownField, StringField
 from tests.models import Markdowner
+
+
+def qual_name(cls):
+    return f"{cls.__module__}.{cls.__name__}"
 
 
 def test_strips_unsafe_tags():
@@ -31,19 +36,25 @@ def test_read_only():
 
 def test_deconstruct__default_suffix():
     field = MarkdownField()
-    assert field.deconstruct() == (
-        None,
-        "sfdo_template_helpers.fields.MarkdownField",
-        [],
-        {},
-    )
+    assert field.deconstruct() == (None, qual_name(MarkdownField), [], {})
 
 
 def test_deconstruct__non_default_suffix():
     field = MarkdownField(property_suffix="_rendered")
     assert field.deconstruct() == (
         None,
-        "sfdo_template_helpers.fields.MarkdownField",
+        qual_name(MarkdownField),
         [],
         {"property_suffix": "_rendered"},
     )
+
+
+def test_string_field_is_text_field():
+    field = StringField()
+    assert field.deconstruct() == (None, qual_name(StringField), [], {})
+    assert type(field.formfield()) == CharFormField
+
+
+def test_string_field_has_no_max_length_by_default():
+    field = StringField()
+    assert field.max_length is None
