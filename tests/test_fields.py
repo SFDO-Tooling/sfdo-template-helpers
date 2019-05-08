@@ -16,6 +16,19 @@ def test_strips_unsafe_tags():
     assert md.description_html == "\n".join(
         ["&lt;script&gt;bad js&lt;/script&gt;", "", "<p>Test</p>"]
     )
+    assert hasattr(md.description_html, "__html__")
+
+
+def test_unsafe_not_safe():
+    md = Markdowner()
+    md.unsafe_description = "not escaped but still!"
+    assert not hasattr(md.unsafe_description, "__html__")
+
+
+def test_override_tags():
+    md = Markdowner()
+    md.unsafe_description = "<b>not allowed!"
+    assert "<b>" not in md.unsafe_description_html
 
 
 def test_can_only_access_from_instance():
