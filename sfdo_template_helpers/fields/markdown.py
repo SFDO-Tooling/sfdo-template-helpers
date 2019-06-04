@@ -14,10 +14,6 @@ import bleach
 from markdown import markdown
 
 
-def supplier(arg):
-    return arg
-
-
 class MarkdownDescriptor(object):
     def __init__(self, field):
         self.field = field
@@ -28,14 +24,14 @@ class MarkdownDescriptor(object):
         raw_md = instance.__dict__[self.field.name]
         if raw_md is None:
             return ""
-        safer = mark_safe if self.field.is_safe else supplier
-        return safer(
-            bleach.clean(
+        result = bleach.clean(
                 markdown(raw_md),
                 tags=self.field.allowed_tags,
                 attributes=self.field.allowed_attrs,
             )
-        )
+        if self.field.is_safe:
+            result = mark_safe(result)
+        return result
 
     def __set__(self, obj, value):
         raise AttributeError("Read-only Attribute.")
@@ -77,12 +73,14 @@ class MarkdownFieldMixin:
     description = _("Field containing Markdown formatted text.")
 
     def __init__(self, *args, **kwargs):
+        # an additional property with this suffix is added to the model
+        # to render the field, the default value is _html
         self.property_suffix = kwargs.pop(
             "property_suffix", MarkdownField.property_suffix
         )
-        """ an additional property with this suffix is added to the model to render the field, the default value is _html """
+        # declare whether or not the html property should be marked safe
+        # for the django template system
         self.is_safe = kwargs.pop("is_safe", True)
-        """ declare whether or not the html property should be marked safe for the django template system """
         self.allowed_tags = kwargs.pop("allowed_tags", MarkdownField.allowed_tags)
         self.allowed_attrs = kwargs.pop("allowed_attrs", MarkdownField.allowed_attrs)
         super().__init__(*args, **kwargs)

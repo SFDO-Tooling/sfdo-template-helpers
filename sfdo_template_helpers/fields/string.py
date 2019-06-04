@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.admin import widgets
 
 
 class StringField(models.TextField):
@@ -11,6 +12,8 @@ class StringField(models.TextField):
 
     That's all."""
 
-    def formfield(self, **kwargs):
-        # skip TextField's override of models.Field.formfield
-        return models.Field.formfield(self, **kwargs)
+
+# Make sure StringField has its own mapping in FORMFIELD_FOR_DBFIELD_DEFAULTS
+# so that it takes precedence over its base class TextField.
+from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
+FORMFIELD_FOR_DBFIELD_DEFAULTS[StringField] = {'widget': widgets.AdminTextInputWidget}
