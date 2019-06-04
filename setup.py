@@ -29,7 +29,7 @@ setup(
     name='sfdo-template-helpers',  # Required
     # https://www.python.org/dev/peps/pep-0440/
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.7.0',  # Required
+    version='0.8.0',  # Required
     # https://packaging.python.org/specifications/core-metadata/#summary
     description="A set of Django helpers and utils used by sfdo-template projects.",
     # https://packaging.python.org/specifications/core-metadata/#description-optional
