@@ -85,6 +85,7 @@ class TestAdminRestrictMiddleware:
         settings.RESTRICTED_PREFIXES = ["admin/", "topsecret/"]
 
         request = Request({"HTTP_X_FORWARDED_FOR": "0.0.0.0"}, "/nottopsecret")
+
         def get_response(request):
             return sentinel.get_response_return
 

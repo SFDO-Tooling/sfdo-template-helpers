@@ -1,7 +1,12 @@
 import pytest
+from django.forms.fields import CharField as CharFormField
 
-from sfdo_template_helpers.fields import MarkdownField
+from sfdo_template_helpers.fields import MarkdownField, StringField
 from tests.models import Markdowner
+
+
+def qual_name(cls):
+    return f"{cls.__module__}.{cls.__name__}"
 
 
 def test_strips_unsafe_tags():
@@ -11,6 +16,25 @@ def test_strips_unsafe_tags():
     assert md.description_html == "\n".join(
         ["&lt;script&gt;bad js&lt;/script&gt;", "", "<p>Test</p>"]
     )
+    assert hasattr(md.description_html, "__html__")
+
+
+def test_unsafe_not_safe():
+    md = Markdowner()
+    md.unsafe_description = "not escaped but still!"
+    assert not hasattr(md.unsafe_description, "__html__")
+
+
+def test_override_tags():
+    md = Markdowner()
+    md.unsafe_description = "<b>not allowed!"
+    assert "<b>" not in md.unsafe_description_html
+
+
+def test_override_attrs():
+    md = Markdowner()
+    md.unsafe_description = "<object title='Hampster Dance'>Blah Blah Blah</object>"
+    assert "<object" in md.unsafe_description_html
 
 
 def test_can_only_access_from_instance():
@@ -31,19 +55,25 @@ def test_read_only():
 
 def test_deconstruct__default_suffix():
     field = MarkdownField()
-    assert field.deconstruct() == (
-        None,
-        "sfdo_template_helpers.fields.MarkdownField",
-        [],
-        {},
-    )
+    assert field.deconstruct() == (None, qual_name(MarkdownField), [], {})
 
 
 def test_deconstruct__non_default_suffix():
     field = MarkdownField(property_suffix="_rendered")
     assert field.deconstruct() == (
         None,
-        "sfdo_template_helpers.fields.MarkdownField",
+        qual_name(MarkdownField),
         [],
         {"property_suffix": "_rendered"},
     )
+
+
+def test_string_field_is_text_field():
+    field = StringField()
+    assert field.deconstruct() == (None, qual_name(StringField), [], {})
+    assert type(field.formfield()) == CharFormField
+
+
+def test_string_field_has_no_max_length_by_default():
+    field = StringField()
+    assert field.max_length is None
