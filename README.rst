@@ -1,6 +1,6 @@
-=============================
+=====================
 SFDO Template Helpers
-=============================
+=====================
 
 .. image:: https://badge.fury.io/py/sfdo-template-helpers.svg
     :target: https://badge.fury.io/py/sfdo-template-helpers
@@ -18,11 +18,11 @@ Quickstart
 
 Install the current version of SFDO Template Helpers::
 
-    pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@v0.1.0#egg=sfdo_template_helpers
+    $ pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@v0.1.0#egg=sfdo_template_helpers
 
 Or install the development HEAD::
 
-    pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@master#egg=sfdo_template_helpers
+    $ pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@master#egg=sfdo_template_helpers
 
 `sfdo-template-helpers` is not distributed on PyPI.
 
@@ -84,6 +84,40 @@ Addresses
 '''''''''
 
 This contains a single function, ``get_remote_ip``, which gets the originating IP of the request from the headers that Heroku sets.
+
+Logfmt
+''''''
+
+This provides some utilities for logfmt logs. You can set them up like this:
+
+.. code-block:: python
+
+   LOGGING = {
+       "version": 1,
+       "disable_existing_loggers": True,
+       "filters": {
+           "job_id": {"()": "sfdo_template_helpers.logfmt_utils.JobIDFilter"},
+       },
+       "formatters": {
+           "logfmt": {
+               "()": "sfdo_template_helpers.logfmt_utils.LogfmtFormatter",
+               "format": (
+                   "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+               ),
+           },
+       },
+       "handlers": {
+           "console": {
+               "level": "DEBUG",
+               "class": "logging.StreamHandler",
+               "filters": ["request_id"],
+               "formatter": "logfmt",
+           },
+       },
+       "loggers": {
+           "django.server": {"handlers": ["console"], "level": "INFO", "propagate": False},
+       },
+   }
 
 Running Tests
 -------------

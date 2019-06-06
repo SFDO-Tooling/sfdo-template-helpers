@@ -53,6 +53,7 @@ setup(
         'djangorestframework (>=3.9,<4.0)',
         'cryptography (>=2.5,<3.0)',
         'django-filter (>=2.1,<3.0)',
+        'logfmt (>=0.4,<1.0)',
     ],  # Optional
     # https://setuptools.readthedocs.io/en/latest/setuptools.html#dependencies-that-aren-t-in-pypi
     dependency_links=[],  # Optional
