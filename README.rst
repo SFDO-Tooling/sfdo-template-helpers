@@ -122,7 +122,7 @@ This provides some utilities for logfmt logs. You can set them up like this:
 Slugs
 '''''
 
-This allows you to easily add forward-changeable slugs to a model. Like this::
+This allows you to easily add slugs to a model. Specifically, slugs that can be changed, while preserving and honoring the old slugs to avoid linkrot. Like this::
 
      class FooSlug(AbstractSlug):
          parent = models.ForeignKey(

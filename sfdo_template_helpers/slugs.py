@@ -36,6 +36,8 @@ class SlugMixin:
         max_length = 50  # This from SlugField
 
         candidate = original
+        # Ignore branches here because this loop should never end:
+        # https://coverage.readthedocs.io/en/v4.5.x/branch.html#structurally-partial-branches
         for i in itertools.count(1):  # pragma: no branch
             if not self.slug_class.objects.filter(slug=candidate).exists():
                 return candidate
