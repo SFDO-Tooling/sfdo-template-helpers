@@ -119,6 +119,35 @@ This provides some utilities for logfmt logs. You can set them up like this:
        },
    }
 
+Slugs
+'''''
+
+This allows you to easily add forward-changeable slugs to a model. Like this::
+
+     class FooSlug(AbstractSlug):
+         parent = models.ForeignKey(
+             "Foo", on_delete=models.PROTECT, related_name="slugs"
+         )
+
+
+     class Foo(SlugMixin, models.Model):
+         name = models.CharField(max_length=50, unique=True)
+         slug_class = FooSlug
+
+You must provide:
+
+ - ``slug_class``: the class that implements slugs for this model.
+
+And the slug class must define a ``parent`` foreign key with the ``related_name`` as ``"slugs"``.
+
+And you may override:
+
+ - ``slug_queryset``: the queryset for slugs for this model.
+ - ``slug_parent``: the instance to assign as the slug parent.
+ - ``slug_field_name``: the field on the main model to base the slug off of.
+
+These overrides are particularly useful for slugs attached through an intermediate model. If you don't need to set them, don't.
+
 Running Tests
 -------------
 
