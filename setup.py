@@ -41,15 +41,15 @@ setup(
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7'
+        'Programming Language :: Python :: 3.8'
     ],  # Optional
     packages=find_packages(),  # Required
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'markdown (>=3.0,<4.0)',
         'bleach (>=3.0,<4.0)',
-        'django (>=2.1,<3.0)',
+        'django (>=2.1,<4.0)',
         'djangorestframework (>=3.9,<4.0)',
         'cryptography (>=2.5,<3.0)',
         'django-filter (>=2.1,<3.0)',
