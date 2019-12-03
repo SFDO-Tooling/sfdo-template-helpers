@@ -9,6 +9,8 @@ jobs:
       - run: sudo pip install tox
       - run: sudo pip install -r requirements.txt
       - run: tox -e py36-django21
+      - run: tox -e py37-django22
+      - run: tox -e py37-django30
 
   test_37:
     docker:
@@ -18,6 +20,8 @@ jobs:
       - run: sudo pip install tox
       - run: sudo pip install -r requirements.txt
       - run: tox -e py37-django21
+      - run: tox -e py37-django22
+      - run: tox -e py37-django30
 
 workflows:
   version: 2
