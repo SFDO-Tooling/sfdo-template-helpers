@@ -17,9 +17,15 @@ class AdminRestrictMiddleware:
 
     def __call__(self, request):
         restricted_areas = tuple(getattr(settings, "RESTRICTED_PREFIXES", ()))
+        unrestricted_areas = tuple(getattr(settings, "UNRESTRICTED_PREFIXES", ()))
         admin_area = getattr(settings, "ADMIN_AREA_PREFIX", None)
         if admin_area is not None:
             restricted_areas += (admin_area,)
+
+        for area in unrestricted_areas:
+            area = area.rstrip("/")
+            if request.path.startswith(f"/{area}"):
+                return self.get_response(request)
 
         for area in restricted_areas:
             area = area.rstrip("/")

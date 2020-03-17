@@ -103,3 +103,14 @@ class TestAdminRestrictMiddleware:
         request = Request({"HTTP_X_FORWARDED_FOR": "127.0.0.1"}, "/topsecret")
         middleware = AdminRestrictMiddleware(get_response)
         assert middleware(request) == sentinel.get_response_return
+
+    def test_unrestricted_prefix(self, settings):
+        settings.ADMIN_API_ALLOWED_SUBNETS = [IPv4Network("127.0.0.1")]
+        settings.UNRESTRICTED_PREFIXES = ["other", "oauth"]
+
+        def get_response(request):
+            return sentinel.get_response_return
+
+        request = Request({"HTTP_X_FORWARDED_FOR": "0.0.0.0"}, "/oauth")
+        middleware = AdminRestrictMiddleware(get_response)
+        assert middleware(request) == sentinel.get_response_return
