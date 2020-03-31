@@ -35,7 +35,7 @@ class SlugMixin:
     def _find_unique_slug(self, original):
         max_length = 50  # This from SlugField
 
-        candidate = original
+        candidate = original[:max_length]
         # Ignore branches here because this loop should never end:
         # https://coverage.readthedocs.io/en/v4.5.x/branch.html#structurally-partial-branches
         for i in itertools.count(1):  # pragma: no branch
