@@ -15,8 +15,13 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "sfdo_template_helpers",
+    "sfdo_template_helpers.oauth2.salesforce",
     "tests",
+    "django_extensions",
 ]
 
 SITE_ID = 1
