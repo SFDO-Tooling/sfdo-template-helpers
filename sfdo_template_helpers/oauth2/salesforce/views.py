@@ -12,6 +12,7 @@ from allauth.socialaccount.providers.salesforce.views import (
     SalesforceOAuth2Adapter as SalesforceOAuth2BaseAdapter,
 )
 from django.core.exceptions import SuspiciousOperation
+from django.conf import settings
 
 from sfdo_template_helpers.crypto import fernet_decrypt, fernet_encrypt
 
@@ -53,21 +54,42 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
         )
         resp = requests.get(self.userinfo_url, headers=headers)
         resp.raise_for_status()
-        extra_data = resp.json()
-        instance_url = kwargs.get("response", {}).get("instance_url", None)
+        user_data = resp.json()
+        extra_data = {
+            "user_id": user_data["user_id"],
+            "organization_id": user_data["organization_id"],
+            "preferred_username": user_data["preferred_username"],
+            "language": user_data["language"],
+        }
         ret = self.get_provider().sociallogin_from_response(request, extra_data)
-        ret.account.extra_data["instance_url"] = instance_url
-        org_details = self.get_org_details(extra_data, token)
+        ret.account.extra_data["instance_url"] = kwargs.get("response", {}).get(
+            "instance_url", None
+        )
+        try:
+            org_data = self.get_org_details(
+                user_data["urls"], extra_data["organization_id"], token
+            )
+        except Exception:
+            if getattr(settings, "SOCIALACCOUNT_SALESFORCE_REQUIRE_ORG_DETAILS", True):
+                raise
+            else:
+                org_details = None
+        else:
+            org_details = {
+                "Name": org_data["Name"],
+                "TrialExpirationDate": org_data["TrialExpirationDate"],
+                "IsSandbox": org_data["IsSandbox"],
+                "OrganizationType": org_data["OrganizationType"],
+                "SignupCountryIsoCode": org_data["SignupCountryIsoCode"],
+            }
         ret.account.extra_data[ORGANIZATION_DETAILS] = org_details
         return ret
 
-    def get_org_details(self, extra_data, token):
+    def get_org_details(self, urls, org_id, token):
         headers = {"Authorization": f"Bearer {token}"}
 
         # Confirm canModifyAllData:
-        org_info_url = (extra_data["urls"]["rest"] + "connect/organization").format(
-            version="48.0"
-        )
+        org_info_url = (urls["rest"] + "connect/organization").format(version="48.0")
         resp = requests.get(org_info_url, headers=headers)
         resp.raise_for_status()
 
@@ -79,9 +101,8 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
             )
 
         # Get org name and type:
-        org_id = extra_data["organization_id"]
         self._validate_org_id(org_id)
-        org_url = (extra_data["urls"]["sobjects"] + "Organization/{org_id}").format(
+        org_url = (urls["sobjects"] + "Organization/{org_id}").format(
             version="48.0", org_id=org_id
         )
         resp = requests.get(org_url, headers=headers)

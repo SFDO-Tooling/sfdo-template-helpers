@@ -37,6 +37,9 @@ class TestSalesforceOAuth2Adapter:
         userinfo_mock = mock.MagicMock()
         userinfo_mock.json.return_value = {
             "organization_id": "00D000000000001EAA",
+            "user_id": "003000000000001",
+            "preferred_username": "test@example.com",
+            "language": "en_US",
             "urls": mock.MagicMock(),
         }
         get.side_effect = [userinfo_mock, mock.MagicMock(), mock.MagicMock()]
@@ -86,6 +89,9 @@ class TestSalesforceOAuth2Adapter:
         userinfo_mock = mock.MagicMock()
         userinfo_mock.json.return_value = {
             "organization_id": "00D000000000001EAA",
+            "user_id": "003000000000001",
+            "preferred_username": "test@example.com",
+            "language": "en_US",
             "urls": mock.MagicMock(),
         }
         api_disabled_mock = mock.MagicMock(status_code=403)
@@ -111,6 +117,35 @@ class TestSalesforceOAuth2Adapter:
 
         with pytest.raises(SalesforcePermissionsError):
             adapter.complete_login(request, None, token, response={})
+
+    def test_complete_login__org_info_not_required(self, rf, mocker):
+        bad_response = mock.MagicMock()
+        bad_response.raise_for_status.side_effect = requests.HTTPError
+        get = mocker.patch("requests.get")
+        insufficient_perms_mock = mock.MagicMock()
+        insufficient_perms_mock.json.return_value = {
+            "userSettings": {"canModifyAllData": False}
+        }
+        get.side_effect = [mock.MagicMock(), insufficient_perms_mock]
+        request = rf.get("/")
+        request.session = {"socialaccount_state": (None, "some-verifier")}
+        adapter = SalesforceOAuth2Adapter(request)
+        adapter.get_provider = mock.MagicMock()
+        slfr = mock.MagicMock()
+        slfr.account.extra_data = {}
+        prov_ret = mock.MagicMock()
+        prov_ret.sociallogin_from_response.return_value = slfr
+        adapter.get_provider.return_value = prov_ret
+        token = mock.MagicMock()
+        token.token = fernet_encrypt("token")
+
+        mocker.patch(
+            "sfdo_template_helpers.oauth2.salesforce.views.settings",
+            SOCIALACCOUNT_SALESFORCE_REQUIRE_ORG_DETAILS=False,
+        )
+
+        ret = adapter.complete_login(request, None, token, response={})
+        assert ret.account.extra_data["organization_details"] is None
 
     def test_parse_token(self):
         adapter = SalesforceOAuth2Adapter(None)
