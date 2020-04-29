@@ -35,7 +35,8 @@ setup(
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7" "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],  # Optional
     packages=find_packages(),  # Required
     # https://packaging.python.org/en/latest/requirements.html
