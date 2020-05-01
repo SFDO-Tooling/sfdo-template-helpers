@@ -37,6 +37,8 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
         self.request.session["custom_domain"] = custom_domain
         if custom_domain == "login" or not custom_domain:
             base_url = "https://login.salesforce.com"
+        elif custom_domain == "test":
+            base_url = "https://test.salesforce.com"
         else:
             base_url = "https://{}.my.salesforce.com".format(custom_domain)
         return base_url
