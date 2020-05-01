@@ -19,6 +19,12 @@ class TestSalesforceOAuth2Adapter:
         adapter = SalesforceOAuth2Adapter(request)
         assert adapter.base_url == "https://login.salesforce.com"
 
+    def test_base_url__sandbox(self, rf):
+        request = rf.get("/?custom_domain=test")
+        request.session = {}
+        adapter = SalesforceOAuth2Adapter(request)
+        assert adapter.base_url == "https://test.salesforce.com"
+
     def test_base_url__custom_domain(self, rf):
         request = rf.get("/?custom_domain=foo-bar.baz")
         request.session = {}
