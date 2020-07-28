@@ -23,7 +23,7 @@ setup(
     name="sfdo-template-helpers",  # Required
     # https://www.python.org/dev/peps/pep-0440/
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="0.15.0",  # Required
+    version="0.16.0",  # Required
     # https://packaging.python.org/specifications/core-metadata/#summary
     description="A set of Django helpers and utils used by sfdo-template projects.",
     # https://packaging.python.org/specifications/core-metadata/#description-optional
@@ -45,7 +45,7 @@ setup(
         "bleach (>=3.0,<4.0)",
         "django (>=2.1,<4.0)",
         "djangorestframework (>=3.9,<4.0)",
-        "cryptography (>=2.5,<3.0)",
+        "cryptography (>=2.5,<4.0)",
         "django-filter (>=2.1,<3.0)",
         "logfmt (>=0.4,<1.0)",
     ],
