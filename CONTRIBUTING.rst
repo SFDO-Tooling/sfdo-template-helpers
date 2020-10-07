@@ -107,4 +107,4 @@ Tips
 
 To run a subset of tests, this or similar::
 
-    $ tox -epy37-django21 -- test_name
+    $ tox -epy38-django22 -- test_name
