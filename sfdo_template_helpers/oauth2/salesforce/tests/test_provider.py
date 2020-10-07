@@ -12,3 +12,12 @@ def test_extract_uid(rf):
     provider = SFDOSalesforceProvider(request)
     result = provider.extract_uid({"organization_id": "ORG", "user_id": "USER"})
     assert result == "ORG/USER"
+
+
+def test_extract_common_fields(rf):
+    request = rf.get("/")
+    provider = SFDOSalesforceProvider(request)
+    result = provider.extract_common_fields(
+        {"organization_id": "ORG", "user_id": "USER"}
+    )
+    assert result == {"username": "ORG_USER"}
