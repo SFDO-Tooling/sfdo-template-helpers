@@ -25,10 +25,10 @@ class MarkdownDescriptor(object):
         if raw_md is None:
             return ""
         result = bleach.clean(
-                markdown(raw_md),
-                tags=self.field.allowed_tags,
-                attributes=self.field.allowed_attrs,
-            )
+            markdown(raw_md),
+            tags=self.field.allowed_tags,
+            attributes=self.field.allowed_attrs,
+        )
         if self.field.is_safe:
             result = mark_safe(result)
         return result
@@ -73,6 +73,7 @@ class MarkdownFieldMixin:
     description = _("Field containing Markdown formatted text.")
 
     def __init__(self, *args, **kwargs):
+        kwargs["help_text"] = kwargs.get("help_text", _("Markdown is supported"))
         # an additional property with this suffix is added to the model
         # to render the field, the default value is _html
         self.property_suffix = kwargs.pop(

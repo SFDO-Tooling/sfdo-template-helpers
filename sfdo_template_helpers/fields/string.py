@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.admin import widgets
 
+# Make sure StringField has its own mapping in FORMFIELD_FOR_DBFIELD_DEFAULTS
+# so that it takes precedence over its base class TextField.
+from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
+
 
 class StringField(models.TextField):
     """ A simple unlimited length string field.
@@ -13,7 +17,4 @@ class StringField(models.TextField):
     That's all."""
 
 
-# Make sure StringField has its own mapping in FORMFIELD_FOR_DBFIELD_DEFAULTS
-# so that it takes precedence over its base class TextField.
-from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
-FORMFIELD_FOR_DBFIELD_DEFAULTS[StringField] = {'widget': widgets.AdminTextInputWidget}
+FORMFIELD_FOR_DBFIELD_DEFAULTS[StringField] = {"widget": widgets.AdminTextInputWidget}

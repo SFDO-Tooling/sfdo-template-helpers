@@ -1,7 +1,7 @@
 import pytest
 
 from sfdo_template_helpers.slugs import AbstractSlug
-from tests.models import Foo, FooSlug
+from tests.models import Foo
 
 
 @pytest.mark.django_db

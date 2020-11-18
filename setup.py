@@ -49,7 +49,7 @@ setup(
         "django-filter (>=2.1,<3.0)",
         "logfmt (>=0.4,<1.0)",
     ],
-    extras_require={"test": ["django-allauth",]},
+    extras_require={"test": ["django-allauth"]},
     # https://stackoverflow.com/a/16576850
     include_package_data=True,
     # https://packaging.python.org/specifications/core-metadata/#project-url-multiple-use

@@ -6,10 +6,7 @@ from allauth.socialaccount.models import SocialApp
 from django.core.exceptions import SuspiciousOperation
 from sfdo_template_helpers.crypto import fernet_decrypt, fernet_encrypt
 
-from ..views import (
-    SalesforceOAuth2Adapter,
-    SalesforcePermissionsError,
-)
+from ..views import SalesforceOAuth2Adapter, SalesforcePermissionsError
 
 
 class TestSalesforceOAuth2Adapter:
