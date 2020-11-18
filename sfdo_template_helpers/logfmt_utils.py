@@ -9,8 +9,10 @@ from logfmt import parse
 try:
     from rq import get_current_job
 except ImportError:  # pragma: nocover
+
     def get_current_job(*args, **kwargs):
         pass
+
 
 NO_JOB_ID = "no-job-id"
 

@@ -55,7 +55,12 @@ def test_read_only():
 
 def test_deconstruct__default_suffix():
     field = MarkdownField()
-    assert field.deconstruct() == (None, qual_name(MarkdownField), [], {})
+    assert field.deconstruct() == (
+        None,
+        qual_name(MarkdownField),
+        [],
+        {"help_text": "Markdown is supported"},
+    )
 
 
 def test_deconstruct__non_default_suffix():
@@ -64,7 +69,7 @@ def test_deconstruct__non_default_suffix():
         None,
         qual_name(MarkdownField),
         [],
-        {"property_suffix": "_rendered"},
+        {"help_text": "Markdown is supported", "property_suffix": "_rendered"},
     )
 
 

@@ -1,9 +1,6 @@
 from django.db import models
 
-from sfdo_template_helpers.fields import (
-    MarkdownField,
-    StringField,
-)
+from sfdo_template_helpers.fields import MarkdownField, StringField
 from sfdo_template_helpers.slugs import AbstractSlug, SlugMixin
 
 
@@ -19,9 +16,7 @@ class Markdowner(models.Model):
 
 
 class FooSlug(AbstractSlug):
-    parent = models.ForeignKey(
-        "Foo", on_delete=models.PROTECT, related_name="slugs"
-    )
+    parent = models.ForeignKey("Foo", on_delete=models.PROTECT, related_name="slugs")
 
 
 class Foo(SlugMixin, models.Model):
