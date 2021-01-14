@@ -64,6 +64,7 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
             "language": user_data["language"],
         }
         ret = self.get_provider().sociallogin_from_response(request, extra_data)
+        ret.account.extra_data["id"] = kwargs.get("response", {}).get("id")
         ret.account.extra_data["instance_url"] = kwargs.get("response", {}).get(
             "instance_url", None
         )
@@ -144,7 +145,9 @@ def ensure_socialapp_in_db(token):
     if token.app.pk is None:
         provider = providers.registry.by_id(token.app.provider)
         app, created = SocialApp.objects.get_or_create(
-            provider=provider.id, name=provider.name, client_id="-",
+            provider=provider.id,
+            name=provider.name,
+            client_id="-",
         )
         token.app = app
 
