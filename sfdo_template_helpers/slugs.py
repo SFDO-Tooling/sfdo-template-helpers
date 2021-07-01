@@ -1,6 +1,8 @@
 import itertools
+from contextlib import suppress
 
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
@@ -45,17 +47,25 @@ class SlugMixin:
             suffix = f"-{i}"
             candidate = candidate[: max_length - len(suffix)] + suffix
 
+    @cached_property
+    def slug_cache(self):
+        # Use a cache so both `slug` and `old_slugs` result in a single query. Normally
+        # we would do the filtering using querysets, but in an effort to help concrete
+        # classes optimize querysets with `prefetch_related` we do it in Python instead.
+        # See:
+        # https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related
+        return list(slug.slug for slug in self.slug_queryset.all() if slug.is_active)
+
     @property
     def slug(self):
-        slug = self.slug_queryset.filter(is_active=True).first()
-        if slug:
-            return slug.slug
-        return None
+        try:
+            return self.slug_cache[0]
+        except IndexError:
+            return None
 
     @property
     def old_slugs(self):
-        slugs = self.slug_queryset.filter(is_active=True)[1:]
-        return [slug.slug for slug in slugs]
+        return self.slug_cache[1:]
 
     @property
     def slug_parent(self):
@@ -73,6 +83,8 @@ class SlugMixin:
             self.slug_class.objects.create(
                 parent=self.slug_parent, slug=slug, is_active=True
             )
+        with suppress(AttributeError):
+            del self.slug_cache  # Clear cached property
 
 
 class AbstractSlug(models.Model):
@@ -80,8 +92,7 @@ class AbstractSlug(models.Model):
     is_active = models.BooleanField(
         default=True,
         help_text=_(
-            "If multiple slugs are active, we will default to "
-            "the most recent."
+            "If multiple slugs are active, we will default to the most recent."
         ),
     )
     created_at = models.DateTimeField(auto_now_add=True)
