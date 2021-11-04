@@ -23,7 +23,7 @@ setup(
     name="sfdo-template-helpers",  # Required
     # https://www.python.org/dev/peps/pep-0440/
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="0.18.0",  # Required
+    version="0.19.0",  # Required
     # https://packaging.python.org/specifications/core-metadata/#summary
     description="A set of Django helpers and utils used by sfdo-template projects.",
     # https://packaging.python.org/specifications/core-metadata/#description-optional
@@ -35,19 +35,19 @@ setup(
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],  # Optional
     packages=find_packages(),  # Required
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        "markdown (>=3.0,<4.0)",
-        "bleach (>=3.0,<4.0)",
-        "django (>=2.2,<4.0)",
-        "djangorestframework (>=3.9,<4.0)",
-        "cryptography (>=2.5,<4.0)",
-        "django-filter (>=2.1,<3.0)",
-        "logfmt (>=0.4,<1.0)",
+        "markdown (>=3.0)",
+        "bleach (>=3.0)",
+        "django (>=2.2)",
+        "djangorestframework (>=3.9)",
+        "cryptography (>=2.5)",
+        "django-filter (>=2.1)",
+        "logfmt (>=0.4)",
     ],
     extras_require={
         "test": [
