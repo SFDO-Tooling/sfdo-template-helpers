@@ -14,7 +14,7 @@ authors = [
 readme = "README.rst"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
 markdown = "^3.0"
 bleach = "^3.0"
 django = "^2.1"
@@ -39,4 +39,3 @@ py36 = true
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-

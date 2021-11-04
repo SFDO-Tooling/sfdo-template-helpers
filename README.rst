@@ -5,10 +5,10 @@ SFDO Template Helpers
 .. image:: https://badge.fury.io/py/sfdo-template-helpers.svg
     :target: https://badge.fury.io/py/sfdo-template-helpers
 
-.. image:: https://travis-ci.org/SFDO-Tooling/sfdo-template-helpers.svg?branch=master
+.. image:: https://travis-ci.org/SFDO-Tooling/sfdo-template-helpers.svg?branch=main
     :target: https://travis-ci.org/SFDO-Tooling/sfdo-template-helpers
 
-.. image:: https://codecov.io/gh/SFDO-Tooling/sfdo-template-helpers/branch/master/graph/badge.svg
+.. image:: https://codecov.io/gh/SFDO-Tooling/sfdo-template-helpers/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/SFDO-Tooling/sfdo-template-helpers
 
 A set of Django helpers and utils used by sfdo-template projects.
@@ -22,7 +22,7 @@ Install the current version of SFDO Template Helpers::
 
 Or install the development HEAD::
 
-    $ pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@master#egg=sfdo_template_helpers
+    $ pip install -e git+https://github.com/SFDO-Tooling/sfdo-template-helpers.git@main#egg=sfdo_template_helpers
 
 `sfdo-template-helpers` is not distributed on PyPI.
 
