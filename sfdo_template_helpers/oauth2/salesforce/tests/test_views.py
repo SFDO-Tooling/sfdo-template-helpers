@@ -20,19 +20,19 @@ class TestSalesforceOAuth2Adapter:
         assert adapter.base_url == "https://login.salesforce.com"
 
     def test_base_url__sandbox(self, rf):
-        request = rf.post("/", {"custom_domain":"test"})
+        request = rf.post("/", {"custom_domain": "test"})
         request.session = {}
         adapter = SalesforceOAuth2Adapter(request)
         assert adapter.base_url == "https://test.salesforce.com"
 
     def test_base_url__custom_domain(self, rf):
-        request = rf.post("/",{"custom_domain":"foo-bar.baz"})
+        request = rf.post("/", {"custom_domain": "foo-bar.baz"})
         request.session = {}
         adapter = SalesforceOAuth2Adapter(request)
         assert adapter.base_url == "https://foo-bar.baz.my.salesforce.com"
 
     def test_base_url__invalid_domain(self, rf):
-        request = rf.post("/",{"custom_domain":"google.com?-"})
+        request = rf.post("/", {"custom_domain": "google.com?-"})
         request.session = {}
         with pytest.raises(SuspiciousOperation):
             SalesforceOAuth2Adapter(request).base_url
