@@ -62,7 +62,7 @@ class TestSalesforceOAuth2Adapter:
         token.token = fernet_encrypt("token")
 
         ret = adapter.complete_login(
-            request, None, token, response={"instance_url": "https://example.com"}
+            request, token.app, token, response={"instance_url": "https://example.com"}
         )
         assert ret.account.extra_data["instance_url"] == "https://example.com"
 
