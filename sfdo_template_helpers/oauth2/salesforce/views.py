@@ -143,7 +143,7 @@ def ensure_socialapp_in_db(token):
     there are none in the db for tokens to be related to
     unless we create them here.
     """
-    if token.app.pk is None:
+    if getattr(token.app ,'pk', None) is None:
         provider = providers.registry.by_id(token.app.provider)
         app, created = SocialApp.objects.get_or_create(
             provider=provider.id,
