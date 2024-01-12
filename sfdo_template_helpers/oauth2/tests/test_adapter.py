@@ -12,6 +12,6 @@ def test_authentication_error_logs(mocker):
     adapter = SFDOSocialAccountAdapter()
 
     with pytest.raises(exceptions.ConnectionError):
-        adapter.authentication_error(exception=exceptions.ConnectionError)
+        adapter.on_authentication_error(exception=exceptions.ConnectionError)
 
     assert error.called
