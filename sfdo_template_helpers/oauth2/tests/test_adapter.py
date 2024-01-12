@@ -6,7 +6,7 @@ from ..adapter import SFDOSocialAccountAdapter
 
 def test_authentication_error_logs(mocker):
     mocker.patch(
-        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.authentication_error"
+        "allauth.socialaccount.adapter.DefaultSocialAccountAdapter.on_authentication_error"
     )  # noqa
     error = mocker.patch("sfdo_template_helpers.oauth2.adapter.logger.error")
     adapter = SFDOSocialAccountAdapter()

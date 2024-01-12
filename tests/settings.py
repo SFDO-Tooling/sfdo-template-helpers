@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-MIDDLEWARE = ()
+MIDDLEWARE = ["allauth.account.middleware.AccountMiddleware"] 
 
 # A one-off key made to run tests. Obviously do not use the key in the test app for
 # anything real!
