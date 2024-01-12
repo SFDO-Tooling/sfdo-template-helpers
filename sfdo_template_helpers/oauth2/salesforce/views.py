@@ -46,7 +46,7 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
 
     def complete_login(self, request, app, token, **kwargs):
         # make sure token is attached to a SocialApp in the db
-        ensure_socialapp_in_db(token)
+        ensure_socialapp_in_db(token, app)
 
         token = fernet_decrypt(token.token)
         headers = {"Authorization": f"Bearer {token}"}
@@ -136,15 +136,15 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
         return super().parse_token(data)
 
 
-def ensure_socialapp_in_db(token):
+def ensure_socialapp_in_db(token, social_app):
     """Make sure that token is attached to a SocialApp in the db.
 
     Since we are using SocialApps constructed from settings,
     there are none in the db for tokens to be related to
     unless we create them here.
     """
-    if getattr(token.app ,'pk', None) is None:
-        provider = providers.registry.get_class(token.app.provider)
+    if getattr(social_app ,'pk', None) is None:
+        provider = providers.registry.get_class(social_app.provider)
         app, created = SocialApp.objects.get_or_create(
             provider=provider.id,
             name=provider.name,
