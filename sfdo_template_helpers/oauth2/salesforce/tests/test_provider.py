@@ -1,5 +1,7 @@
 from ..provider import SFDOSalesforceProvider
 from allauth.socialaccount.models import SocialApp
+import pytest
+
 
 @pytest.fixture
 def dummy_app():
