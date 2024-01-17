@@ -46,7 +46,8 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
 
     def complete_login(self, request, app, token, **kwargs):
         # make sure token is attached to a SocialApp in the db
-        ensure_socialapp_in_db(token, app)
+        #Social app is retrieved from the settings.SOCIALACCOUNT_PROVIDERS
+        #ensure_socialapp_in_db(token, app)
 
         token = fernet_decrypt(token.token)
         headers = {"Authorization": f"Bearer {token}"}
