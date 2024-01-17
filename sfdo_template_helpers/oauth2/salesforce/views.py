@@ -137,24 +137,25 @@ class SalesforceOAuth2Adapter(SalesforceOAuth2BaseAdapter):
         return super().parse_token(data)
 
 
-def ensure_socialapp_in_db(token, social_app):
-    """Make sure that token is attached to a SocialApp in the db.
+# @W-14777545 - Disabling ensure social app in db 
+# def ensure_socialapp_in_db(token, social_app):
+#     """Make sure that token is attached to a SocialApp in the db.
 
-    Since we are using SocialApps constructed from settings,
-    there are none in the db for tokens to be related to
-    unless we create them here.
-    """
-    if social_app is None:
-        social_app = token.app
+#     Since we are using SocialApps constructed from settings,
+#     there are none in the db for tokens to be related to
+#     unless we create them here.
+#     """
+#     if social_app is None:
+#         social_app = token.app
 
-    if getattr(social_app ,'pk', None) is None:
-        provider = providers.registry.get_class(social_app.provider)
-        app, created = SocialApp.objects.get_or_create(
-            provider=provider.id,
-            name=provider.name,
-            client_id="-",
-        )
-        token.app = app
+#     if getattr(social_app ,'pk', None) is None:
+#         provider = providers.registry.get_class(social_app.provider)
+#         app, created = SocialApp.objects.get_or_create(
+#             provider=provider.id,
+#             name=provider.name,
+#             client_id="-",
+#         )
+#         token.app = app
 
 
 oauth2_login = OAuth2LoginView.adapter_view(SalesforceOAuth2Adapter)
