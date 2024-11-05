@@ -4,8 +4,8 @@ from allauth.socialaccount.providers.salesforce.provider import SalesforceProvid
 class SFDOSalesforceProvider(SalesforceProvider):
     package = "sfdo_template_helpers.oauth2.salesforce"
 
-    def get_auth_params_from_request(self, request, action):
-        ret = super().get_auth_params_from_request(request, action)
+    def get_auth_params(self):
+        ret = super().get_auth_params()
         # This will ensure that even if you're logged in to Salesforce,
         # you'll be prompted to choose an identity to auth as:
         ret["prompt"] = "login"
