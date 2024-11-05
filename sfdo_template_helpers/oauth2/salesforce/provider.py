@@ -9,6 +9,7 @@ class SFDOSalesforceProvider(SalesforceProvider):
         # This will ensure that even if you're logged in to Salesforce,
         # you'll be prompted to choose an identity to auth as:
         ret["prompt"] = "login"
+        ret["approval_prompt"] = "force"
         return ret
 
     def extract_uid(self, data):
