@@ -9,7 +9,7 @@ class SFDOSalesforceProvider(SalesforceProvider):
 
     def get_auth_params(self, request, action):
         # Call super() to retrieve existing params, then add/override as needed
-        params = super().get_auth_params(request, action)
+        params = super().get_auth_params_from_request(request, action)
         # Force Salesforce to prompt a new login rather than reusing existing creds
         params["prompt"] = "login"
         return params
