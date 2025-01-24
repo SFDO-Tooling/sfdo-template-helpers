@@ -1,27 +1,39 @@
 from allauth.socialaccount.providers.salesforce.provider import SalesforceProvider
 
-
 class SFDOSalesforceProvider(SalesforceProvider):
-    package = "sfdo_template_helpers.oauth2.salesforce"
+    # If you want this provider to replace the built-in "salesforce" provider, set:
+    # id = "salesforce"
+    #
+    # If you want a *separate* provider alongside the built-in one, set a unique ID:
+    # id = "sfdo_salesforce"
 
-    def get_auth_params(self):
-        ret = super().get_auth_params()
-        # This will ensure that even if you're logged in to Salesforce,
-        # you'll be prompted to choose an identity to auth as:
-        ret["prompt"] = "login"
-        ret["approval_prompt"] = "force"
-        return ret
+    def get_auth_params(self, request, action):
+        # Call super() to retrieve existing params, then add/override as needed
+        params = super().get_auth_params(request, action)
+        # Force Salesforce to prompt a new login rather than reusing existing creds
+        params["prompt"] = "login"
+        return params
 
     def extract_uid(self, data):
-        # The SalesforceProvider in allauth assumes that user_id is unique,
-        # but it can be the same between multiple sandboxes that were
-        # copied from the same production org. So we need to add the org id
-        # too to disambiguate.
-        return f"{data['organization_id']}/{data['user_id']}"
+        """
+        The built-in SalesforceProvider uses data['user_id'] as the UID.
+        Here, we combine organization_id + user_id so that
+        multiple sandboxes (copied from the same production org)
+        won't share the same UID.
+        """
+        org_id = data.get("organization_id", "")
+        user_id = data.get("user_id", "")
+        return f"{org_id}/{user_id}"
 
     def extract_common_fields(self, data):
-        # Get fields used to populate the Django user.
-        return {"username": f"{data['organization_id']}_{data['user_id']}"}
+        """
+        Map data returned from Salesforce to Django's User model fields.
+        This example sets 'username' to org_id_user_id.
+        """
+        org_id = data.get("organization_id", "")
+        user_id = data.get("user_id", "")
+        return {"username": f"{org_id}_{user_id}"}
 
 
+# Required by django-allauth to load custom providers
 provider_classes = [SFDOSalesforceProvider]
