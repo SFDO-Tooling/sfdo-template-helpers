@@ -2,7 +2,7 @@ from allauth.socialaccount.providers.salesforce.provider import SalesforceProvid
 
 class SFDOSalesforceProvider(SalesforceProvider):
     # If you want this provider to replace the built-in "salesforce" provider, set:
-    # id = "salesforce"
+    id = "salesforce"
     #
     # If you want a *separate* provider alongside the built-in one, set a unique ID:
     # id = "sfdo_salesforce"
