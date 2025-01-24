@@ -17,7 +17,7 @@ def dummy_app():
 @pytest.mark.django_db
 def test_get_auth_params(rf, dummy_app):
     request = rf.get("/")
-    result = SFDOSalesforceProvider(request, dummy_app).get_auth_params(request, None)
+    result = SFDOSalesforceProvider(request, dummy_app).get_auth_params()
     assert "prompt" in result and result["prompt"] == "login"
 
 
